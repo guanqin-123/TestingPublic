@@ -35,5 +35,5 @@ jobs:
       
       - name: pull results
         run:
-          git clone "https://${secrets.SOLUTION}@github.com/guanqin-123/SVF-Teaching-Testing.git";
+          git clone "https://${{secrets.SOLUTION}}@github.com/guanqin-123/SVF-Teaching-Testing.git";
           ${{github.workspace}}/marking.sh
