@@ -30,9 +30,10 @@ jobs:
       - name: build-svf
         run:
           git clone "https://github.com/SVF-tools/SVF";
+          cd SVF
           ${{github.workspace}}/SVF/build.sh
       
       - name: pull results
         run:
-          git clone"https://$solution@github.com/guanqin-123/SVF-Teaching-Testing.git";
+          git clone"https://$SOLUTION@github.com/guanqin-123/SVF-Teaching-Testing.git";
           ${{github.workspace}}/marking.sh
