@@ -29,8 +29,8 @@ jobs:
       # build-svf
       - name: build-svf
         run:
-          git clone "https://github.com/SVF-tools/Test-Suite.git";
-          ${{github.workspace}}/build.sh
+          git clone "https://github.com/SVF-tools/SVF";
+          ${{github.workspace}}/SVF/build.sh
       
       - name: pull results
         run:
