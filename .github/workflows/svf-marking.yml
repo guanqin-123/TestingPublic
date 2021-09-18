@@ -1,0 +1,55 @@
+name: svf-marking
+
+# Triggers the workflow on push or pull request events
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-18.04]
+    steps:
+      # checkout the repo
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+      # setup the environment 
+      - name: env-setup
+        run: |
+          npm install svf-lib
+          if [ "$RUNNER_OS" = "Linux" ]; then sudo apt-get update       ; fi
+          if [ "$RUNNER_OS" = "Linux" ]; then sudo apt-get install cmake gcc g++ gdb; fi
+          
+      - name: build-svf-teaching-solution
+        run: |
+         git clone "https://${{secrets.SOLUTION}}@github.com/SVF-tools/SVF-Teaching-Solutions.git";
+         source env.sh
+         mkdir solutions
+         cd solutions
+         cmake ../SVF-Teaching-Solutions . && make -j4
+         tree
+         
+      # - name: marking
+      #   run: |  
+      #    git config --global user.name 'github-actions'
+      #    git config --global user.email 'github-actions@users.noreply.github.com'
+      #    git rm $GITHUB_WORKSPACE/results/*.txt || true
+      #    git commit -am "remove old results" || true
+      #    git push
+      #    cd $GITHUB_WORKSPACE
+      #    bash ./marking.sh
+         
+      # - name: push marking results
+      #   run: |
+      #     cd $GITHUB_WORKSPACE
+      #     git pull
+      #     for i in $(ls SVF-Teaching-Solutions/results/*)
+      #     do
+      #        cp -r $i results/
+      #     done
+      #     git status
+      #     git add results/*.txt
+      #     git commit -am "marking results" || true
+      #     git push

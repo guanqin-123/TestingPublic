@@ -29,8 +29,6 @@
 
 
 #include "Assignment-1.h"
-#include<sstream>
-#include<string>
 using namespace std;
 
 /// TODO: print each path once this method is called, and
@@ -38,35 +36,32 @@ using namespace std;
 /// Print the path in the format "START: 1->2->4->5->END", where -> indicate an edge connecting two node IDs
 void GraphTraversal::printPath(std::vector<const Node *> &path)
 {
-string resultString;
-    resultString = "START: ";
-
-    for(auto x : path)
+    std::string singlePath = "START: ";
+    for (const Node *node : path)
     {
-        resultString= resultString + to_string(x->getNodeID())+ "->";
-    }   
-    resultString= resultString + "END";
-    paths.insert(resultString);
-
+        singlePath.append(std::to_string(node->getNodeID()));
+        singlePath.append("->");
+    }
+     singlePath += "END";
+     paths.insert(singlePath);
 };
 
 /// TODO: Implement your depth first search here to traverse each program path (once for any loop) from src to dst
 void GraphTraversal::DFS(set<const Node *> &visited, vector<const Node *> &path, const Node *src, const Node *dst)
 {
- visited.insert(src);
+    visited.insert(src);
     path.push_back(src);
-
-    if(src == dst)
-        printPath(path);
-
-    for(auto y : src->getOutEdges())
+    if (src == dst)
     {
-         if(visited.find(y->getDst()) == visited.end())
-         {
-            DFS(visited, path, y->getDst(), dst);
-         }
+        printPath(path);
     }
-
+    for (const Edge *edge : src->getOutEdges())
+    {
+        if (visited.find(edge->getDst()) == visited.end())
+        {
+            DFS(visited, path, edge->getDst(), dst);
+        }
+    }
     visited.erase(src);
     path.pop_back();
 }
