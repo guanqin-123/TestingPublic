@@ -31,15 +31,15 @@ jobs:
          cmake ../SVF-Teaching-Testing . && make -j4
          tree
          
-      # - name: marking
-      #   run: |  
-      #    git config --global user.name 'github-actions'
-      #    git config --global user.email 'github-actions@users.noreply.github.com'
-      #    git rm $GITHUB_WORKSPACE/results/*.txt || true
-      #    git commit -am "remove old results" || true
-      #    git push
-      #    cd $GITHUB_WORKSPACE
-      #    bash ./marking.sh
+      - name: marking
+        run: |  
+         git config --global user.name 'github-actions'
+         git config --global user.email 'github-actions@users.noreply.github.com'
+         git rm $GITHUB_WORKSPACE/results/*.txt || true
+         git commit -am "remove old results" || true
+         git push
+         cd $GITHUB_WORKSPACE
+         bash ./marking.sh
          
       # - name: push marking results
       #   run: |
