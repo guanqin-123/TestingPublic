@@ -24,8 +24,8 @@ jobs:
           
       - name: build-svf-teaching-solution
         run: |
-         git clone "https://${{secrets.RIGHTS}}@github.com/guanqin-123/SVF-Teaching-Testing.git";
-         source env.sh
+         git clone "https://${{secrets.RIGHTS}}@github.com/guanqin-123/SVF-Teaching-Testing.git"
+         source ./SVF-Teaching-Testing/env.sh
          mkdir solutions
          cd solutions
          cmake ../SVF-Teaching-Testing . && make -j4
