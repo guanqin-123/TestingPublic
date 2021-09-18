@@ -24,11 +24,11 @@ jobs:
           
       - name: build-svf-teaching-solution
         run: |
-         git clone "https://${{secrets.SOLUTION}}@github.com/SVF-tools/SVF-Teaching-Solutions.git";
+         git clone "https://${{secrets.RIGHTS}}@github.com/guanqin-123/SVF-Teaching-Testing.git";
          source env.sh
          mkdir solutions
          cd solutions
-         cmake ../SVF-Teaching-Solutions . && make -j4
+         cmake ../SVF-Teaching-Testing . && make -j4
          tree
          
       # - name: marking
